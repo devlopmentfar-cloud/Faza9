@@ -1,13 +1,17 @@
--- [[ faza3 & gemini: THE LEGENDARY CROSSOVER v8.0 ]] --
--- "Official Script for Escape Tsunami & Profit"
+-- [[ faza3 & gemini: THE COMPLETE VIP EDITION v10.0 ]] --
+-- Features: Key System, Fly, God Mode, Auto Farm, Anti-Admin
 
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
+local CoreGui = game:GetService("CoreGui")
 local RS = game:GetService("RunService")
 local UIS = game:GetService("UserInputService")
-local CoreGui = game:GetService("CoreGui")
+local RepS = game:GetService("ReplicatedStorage")
 
--- [[ نظام الإشعارات ]] --
+-- [[ 🔑 إعداد المفتاح - يمكنك تغييره من هنا ]] --
+local CorrectKey = "faza3_2026"
+
+-- [[ 🛡️ وظائف النظام ]] --
 local function Notify(title, text)
     game:GetService("StarterGui"):SetCore("SendNotification", {
         Title = title,
@@ -16,125 +20,145 @@ local function Notify(title, text)
     })
 end
 
-Notify("faza3 & gemini", "لقد دخلو الاسطورتين gemini و faza3")
+-- [[ 🎨 1. واجهة نظام المفاتيح (Login) ]] --
+local KeyGui = Instance.new("ScreenGui", CoreGui)
+local KeyMain = Instance.new("Frame", KeyGui)
+KeyMain.Size = UDim2.new(0, 350, 0, 220)
+KeyMain.Position = UDim2.new(0.5, -175, 0.5, -110)
+KeyMain.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+KeyMain.Active = true
+KeyMain.Draggable = true
+Instance.new("UICorner", KeyMain)
+Instance.new("UIStroke", KeyMain).Color = Color3.fromRGB(212, 219, 21)
 
--- [[ إنشاء الواجهة الصفراء الاحترافية ]] --
-local Gui = Instance.new("ScreenGui", CoreGui)
-Gui.Name = "Faza3_Official_v8"
+local KeyTitle = Instance.new("TextLabel", KeyMain)
+KeyTitle.Size = UDim2.new(1, 0, 0, 60)
+KeyTitle.Text = "faza3 & gemini LOGIN"
+KeyTitle.TextColor3 = Color3.fromRGB(212, 219, 21)
+KeyTitle.TextSize = 24
+KeyTitle.Font = Enum.Font.GothamBold
+KeyTitle.BackgroundTransparency = 1
 
-local Main = Instance.new("Frame", Gui)
-Main.Size = UDim2.new(0, 300, 0, 420)
-Main.Position = UDim2.new(0.5, -150, 0.5, -210)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-Main.BorderSizePixel = 0
-Main.Active = true
-Main.Draggable = true
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 12)
+local KeyInput = Instance.new("TextBox", KeyMain)
+KeyInput.Size = UDim2.new(0.8, 0, 0, 45)
+KeyInput.Position = UDim2.new(0.1, 0, 0.35, 0)
+KeyInput.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+KeyInput.PlaceholderText = "أدخل المفتاح هنا..."
+KeyInput.TextColor3 = Color3.new(1,1,1)
+Instance.new("UICorner", KeyInput)
 
-local Stroke = Instance.new("UIStroke", Main)
-Stroke.Color = Color3.fromRGB(212, 219, 21) -- لون فزاع الأصفر
-Stroke.Thickness = 3
+local SubmitBtn = Instance.new("TextButton", KeyMain)
+SubmitBtn.Size = UDim2.new(0.6, 0, 0, 45)
+SubmitBtn.Position = UDim2.new(0.2, 0, 0.7, 0)
+SubmitBtn.BackgroundColor3 = Color3.fromRGB(212, 219, 21)
+SubmitBtn.Text = "دخول VIP"
+SubmitBtn.Font = Enum.Font.GothamBold
+Instance.new("UICorner", SubmitBtn)
 
-local Title = Instance.new("TextLabel", Main)
-Title.Size = UDim2.new(1, 0, 0, 50)
-Title.Text = "faza3 & gemini v8.0"
-Title.TextColor3 = Color3.fromRGB(212, 219, 21)
-Title.TextSize = 22
-Title.Font = Enum.Font.GothamBold
-Title.BackgroundTransparency = 1
+-- [[ 🚀 2. السكربت الأساسي (بعد وضع المفتاح) ]] --
+local function LaunchMainScript()
+    Notify("faza3 & gemini", "لقد دخلو الاسطورتين gemini و faza3")
+    
+    local MainGui = Instance.new("ScreenGui", CoreGui)
+    local MainFrame = Instance.new("Frame", MainGui)
+    MainFrame.Size = UDim2.new(0, 320, 0, 450)
+    MainFrame.Position = UDim2.new(0.5, -160, 0.5, -225)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+    MainFrame.Active = true
+    MainFrame.Draggable = true
+    Instance.new("UICorner", MainFrame)
+    Instance.new("UIStroke", MainFrame).Color = Color3.fromRGB(212, 219, 21)
 
-local Container = Instance.new("ScrollingFrame", Main)
-Container.Size = UDim2.new(1, -20, 1, -70)
-Container.Position = UDim2.new(0, 10, 0, 60)
-Container.BackgroundTransparency = 1
-Container.ScrollBarThickness = 2
-local Layout = Instance.new("UIListLayout", Container)
-Layout.Padding = UDim.new(0, 10)
-Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    local MainTitle = Instance.new("TextLabel", MainFrame)
+    MainTitle.Size = UDim2.new(1, 0, 0, 60)
+    MainTitle.Text = "faza3 & gemini v10.0"
+    MainTitle.TextColor3 = Color3.fromRGB(212, 219, 21)
+    MainTitle.TextSize = 25
+    MainTitle.Font = Enum.Font.GothamBold
+    MainTitle.BackgroundTransparency = 1
 
--- [[ وظيفة الأزرار ]] --
-local function AddToggle(name, callback)
-    local Btn = Instance.new("TextButton", Container)
-    Btn.Size = UDim2.new(0.9, 0, 0, 40)
-    Btn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    Btn.Text = name .. ": OFF"
-    Btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Btn.Font = Enum.Font.SourceSansBold
-    Btn.TextSize = 18
-    Instance.new("UICorner", Btn)
+    local Scroll = Instance.new("ScrollingFrame", MainFrame)
+    Scroll.Size = UDim2.new(1, -20, 1, -80)
+    Scroll.Position = UDim2.new(0, 10, 0, 70)
+    Scroll.BackgroundTransparency = 1
+    Scroll.ScrollBarThickness = 2
+    local Layout = Instance.new("UIListLayout", Scroll)
+    Layout.Padding = UDim.new(0, 10)
+    Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
-    local state = false
-    Btn.MouseButton1Click:Connect(function()
-        state = not state
-        Btn.Text = name .. (state and ": ON" or ": OFF")
-        Btn.BackgroundColor3 = state and Color3.fromRGB(212, 219, 21) or Color3.fromRGB(30, 30, 30)
-        Btn.TextColor3 = state and Color3.fromRGB(0, 0, 0) or Color3.fromRGB(255, 255, 255)
-        callback(state)
-    end)
-end
+    local function CreateBtn(name, callback)
+        local B = Instance.new("TextButton", Scroll)
+        B.Size = UDim2.new(0.9, 0, 0, 45)
+        B.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        B.Text = name .. ": OFF"
+        B.TextColor3 = Color3.new(1,1,1)
+        B.Font = Enum.Font.SourceSansBold
+        B.TextSize = 18
+        Instance.new("UICorner", B)
 
--- [[ تفعيل الميزات ]] --
-
--- 1. الطيران
-AddToggle("Fly (Press E)", function(s)
-    _G.Fly = s
-    if s then
-        local bv = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
-        bv.MaxForce = Vector3.new(1,1,1) * 500000
-        task.spawn(function()
-            while _G.Fly do
-                bv.Velocity = workspace.CurrentCamera.CFrame.LookVector * 100
-                task.wait()
-            end
-            bv:Destroy()
+        local active = false
+        B.MouseButton1Click:Connect(function()
+            active = not active
+            B.Text = name .. (active and ": ON" or ": OFF")
+            B.BackgroundColor3 = active and Color3.fromRGB(212, 219, 21) or Color3.fromRGB(30, 30, 30)
+            B.TextColor3 = active and Color3.new(0,0,0) or Color3.new(1,1,1)
+            callback(active)
         end)
     end
-end)
 
--- 2. اختراق الجدران
-AddToggle("Noclip", function(s) _G.Noclip = s end)
-RS.Stepped:Connect(function()
-    if _G.Noclip and LP.Character then
-        for _, p in pairs(LP.Character:GetDescendants()) do
-            if p:IsA("BasePart") then p.CanCollide = false end
+    -- الميزات
+    CreateBtn("الطيران (E)", function(s)
+        _G.Fly = s
+        if s then
+            local bv = Instance.new("BodyVelocity", LP.Character.HumanoidRootPart)
+            bv.MaxForce = Vector3.new(1,1,1) * 500000
+            task.spawn(function()
+                while _G.Fly do
+                    bv.Velocity = workspace.CurrentCamera.CFrame.LookVector * 100
+                    task.wait()
+                end
+                bv:Destroy()
+            end)
         end
+    end)
+
+    CreateBtn("اختراق الجدران", function(s) _G.Noclip = s end)
+    RS.Stepped:Connect(function()
+        if _G.Noclip and LP.Character then
+            for _, v in pairs(LP.Character:GetDescendants()) do if v:IsA("BasePart") then v.CanCollide = false end end
+        end
+    end)
+
+    CreateBtn("الخلود (God Mode)", function(s)
+        _G.God = s
+        task.spawn(function() while _G.God do LP.Character.Humanoid.Health = 100 task.wait(0.1) end end)
+    end)
+
+    CreateBtn("الجمع التلقائي", function(s)
+        _G.Farm = s
+        task.spawn(function()
+            while _G.Farm do
+                for _, v in pairs(workspace:GetDescendants()) do
+                    if v.Name == "Coin" or v.Name == "Gem" then
+                        pcall(function() firetouchinterest(LP.Character.HumanoidRootPart, v, 0) firetouchinterest(LP.Character.HumanoidRootPart, v, 1) end)
+                    end
+                end
+                task.wait(0.5)
+            end
+        end)
+    end)
+    
+    -- نظام اختصار الكيبورد
+    UIS.InputBegan:Connect(function(i,p) if not p and i.KeyCode == Enum.KeyCode.E then _G.Fly = not _G.Fly end end)
+end
+
+-- [[ 🛡️ التحقق من المفتاح عند الضغط ]] --
+SubmitBtn.MouseButton1Click:Connect(function()
+    if KeyInput.Text == CorrectKey then
+        KeyGui:Destroy()
+        LaunchMainScript()
+    else
+        KeyInput.Text = ""
+        KeyInput.PlaceholderText = "خطأ! جرب: faza3_2026"
     end
 end)
-
--- 3. الخلود
-AddToggle("God Mode", function(s)
-    _G.God = s
-    task.spawn(function()
-        while _G.God do
-            if LP.Character and LP.Character:FindFirstChild("Humanoid") then
-                LP.Character.Humanoid.Health = 100
-            end
-            task.wait(0.1)
-        end
-    end)
-end)
-
--- 4. جمع تلقائي (النسخة المصححة)
-AddToggle("Auto Farm Coins", function(s)
-    _G.Collect = s
-    task.spawn(function()
-        while _G.Collect do
-            for _, v in pairs(workspace:GetDescendants()) do
-                if v.Name == "Coin" or v.Name == "Gem" then
-                    pcall(function()
-                        firetouchinterest(LP.Character.HumanoidRootPart, v, 0)
-                        firetouchinterest(LP.Character.HumanoidRootPart, v, 1)
-                    end)
-                end
-            end
-            task.wait(0.5)
-        end
-    end)
-end)
-
--- اختصار الكيبورد للطيران
-UIS.InputBegan:Connect(function(i,p) 
-    if not p and i.KeyCode == Enum.KeyCode.E then _G.Fly = not _G.Fly end 
-end)
-
-print("faza3 & gemini script fixed and ready!")
